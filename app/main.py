@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pathlib import Path
 
-from response_handler import check_response
+from app.response_handler import check_response
 
 
 app = FastAPI(

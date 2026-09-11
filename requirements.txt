@@ -3,5 +3,3 @@ uvicorn
 python-multipart
 pymupdf
 pandas
-sentence-transformers
-faiss-cpu

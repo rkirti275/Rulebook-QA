@@ -1,42 +1,79 @@
 import json
-import faiss
-import numpy as np
-from sentence_transformers import SentenceTransformer
+import math
+import re
+from pathlib import Path
+from collections import Counter
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
 
-index = faiss.read_index("../data/rulebook.index")
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+CHUNKS_FILE = DATA_DIR / "chunks.json"
 
-with open("../data/chunks.json", "r", encoding="utf-8") as f:
+
+with open(CHUNKS_FILE, "r", encoding="utf-8") as f:
     chunks = json.load(f)
+
+
+def tokenize(text):
+    return re.findall(r"\b[a-zA-Z0-9]+\b", text.lower())
+
+
+def cosine_similarity(query_words, document_words):
+    query_count = Counter(query_words)
+    document_count = Counter(document_words)
+
+    common_words = set(query_count) & set(document_count)
+
+    if not common_words:
+        return 0.0
+
+    dot_product = sum(
+        query_count[word] * document_count[word]
+        for word in common_words
+    )
+
+    query_magnitude = math.sqrt(
+        sum(value ** 2 for value in query_count.values())
+    )
+
+    document_magnitude = math.sqrt(
+        sum(value ** 2 for value in document_count.values())
+    )
+
+    if query_magnitude == 0 or document_magnitude == 0:
+        return 0.0
+
+    return dot_product / (query_magnitude * document_magnitude)
 
 
 def search(query, top_k=5):
 
-    query_embedding = model.encode([query])
-    query_embedding = np.array(query_embedding).astype("float32")
+    query_words = tokenize(query)
 
-    faiss.normalize_L2(query_embedding)
+    scored_results = []
 
-    scores, indices = index.search(query_embedding, top_k)
+    for chunk in chunks:
 
-    results = []
+        document_words = tokenize(chunk["text"])
 
-    for score, idx in zip(scores[0], indices[0]):
+        score = cosine_similarity(
+            query_words,
+            document_words
+        )
 
-        if idx == -1:
-            continue
-
-        chunk = chunks[idx]
-
-        results.append({
-            "score": float(score),
+        scored_results.append({
+            "score": score,
             "source": chunk["source"],
             "section": chunk["section"],
             "text": chunk["text"]
         })
 
-    return results
+    scored_results.sort(
+        key=lambda x: x["score"],
+        reverse=True
+    )
+
+    return scored_results[:top_k]
 
 
 if __name__ == "__main__":

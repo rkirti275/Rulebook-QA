@@ -1,4 +1,4 @@
-from retriever import search
+from app.retriever import search
 
 
 # Minimum similarity required
