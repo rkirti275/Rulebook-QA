@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SVVV Rulebook QA</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>SVVV Rulebook QA</h1>
+            <p>Ask questions about university academic regulations</p>
+        </header>
+
+        <main>
+
+            <div class="chat-box" id="chatBox">
+
+                <div class="message bot">
+                    <div class="message-content">
+                        <strong>Rulebook Assistant</strong>
+                        <p>
+                            Hello! Ask me anything about the university
+                            rulebook.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="input-area">
+
+                <input
+                    type="text"
+                    id="questionInput"
+                    placeholder="Ask your question..."
+                    autocomplete="off"
+                >
+
+                <button onclick="askQuestion()">
+                    Ask
+                </button>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="/static/script.js"></script>
+
+</body>
+</html>

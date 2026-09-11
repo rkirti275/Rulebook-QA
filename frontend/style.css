@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+header {
+    padding: 25px;
+    background: #1f2937;
+    color: white;
+}
+
+header h1 {
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #d1d5db;
+}
+
+.chat-box {
+    height: 500px;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 20px;
+}
+
+.message-content {
+    padding: 15px;
+    border-radius: 10px;
+    line-height: 1.5;
+}
+
+.bot .message-content {
+    background: #f1f5f9;
+}
+
+.user .message-content {
+    background: #e0f2fe;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin: 8px 0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.status.answered {
+    background: #dcfce7;
+}
+
+.status.conflict {
+    background: #fef3c7;
+}
+
+.status.not-covered {
+    background: #fee2e2;
+}
+
+.citation {
+    margin-top: 12px;
+    padding: 15px;
+    border-left: 4px solid #64748b;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.citation p {
+    margin: 6px 0;
+}
+
+.passage {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f8fafc;
+    font-size: 13px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.input-area {
+    display: flex;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    gap: 10px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.input-area button {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.input-area button:hover {
+    background: #1d4ed8;
+}
